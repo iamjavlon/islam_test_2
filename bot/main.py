@@ -1,9 +1,11 @@
 from telegram.ext import (Updater, 
                             CommandHandler,                             
-                            ConversationHandler,    
+                            ConversationHandler,
+                            CallbackQueryHandler,    
                             Filters, 
                             MessageHandler,
                             PicklePersistence, dispatcher)
+from bot.src.registration import Registration, Name
 from bot.src.menu import Menu
 import dotenv
 import logging
@@ -16,6 +18,8 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+registration=Registration()
+name=Name()
 menu=Menu()
 
 def main():
@@ -25,8 +29,12 @@ def main():
     
     main_conversation = ConversationHandler(
          entry_points=[
-            CommandHandler('start', menu.display)],
+            CommandHandler('start', registration.start)],
         states={
+            "LANGUAGE": [
+              CallbackQueryHandler(
+                    registration.get_language, pattern='uz|ru|en')   
+            ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(
                         'Quran Recitation'), menu.display),

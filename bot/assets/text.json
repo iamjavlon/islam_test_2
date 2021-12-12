@@ -1,11 +1,32 @@
 {
     "text":{
+        "choose_language":{
+            "uz": "Tilni tanlang",
+            "ru": "Выберите язык",
+            "en": "Choose language"
+        },
+        "uzbek_soon":{
+            "uz": "Yaqin orada O'zbek tili qo'shiladi"
+        },
+        "russian_soon":{
+            "ru": "Русский язык не доступен"
+        },
+        "request_name":{
+            "uz": "Ismingizni kiriting",
+            "ru": "Как вас зовут?",
+            "en": "What is your name?"
+        },
         "menu":{
             "ru": "Главное меню"
         }
     },
 
     "buttons":{
+        "language":{
+            "uz": "O'zbek tili",
+            "ru": "Русский язык",
+            "en": "English"
+        },
         "quran_recitation":{
             "ru": "Чтение Коран"
         }
