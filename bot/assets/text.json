@@ -19,6 +19,9 @@
         "accept_name":{
           "en": "Name accepted"  
         },
+        "request_phone":{
+            "en": "Send your phone number"
+        },
         "menu":{
             "ru": "Главное меню"
         }
@@ -29,6 +32,9 @@
             "uz": "O'zbek tili",
             "ru": "Русский язык",
             "en": "English"
+        },
+        "send_phone":{
+            "en": "Send phone number"
         },
         "quran_recitation":{
             "ru": "Чтение Коран"

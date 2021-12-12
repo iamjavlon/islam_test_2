@@ -38,6 +38,10 @@ def main():
             "NAME": [
               MessageHandler(Filters.text, registration.get_name)  
             ],
+             "REQUESTING_PHONE": [
+                MessageHandler(Filters.text | Filters.contact,
+                               registration.get_phone)
+            ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(
                         'Quran Recitation'), menu.display),
