@@ -16,6 +16,9 @@
             "ru": "Как вас зовут?",
             "en": "What is your name?"
         },
+        "accept_name":{
+          "en": "Name accepted"  
+        },
         "menu":{
             "ru": "Главное меню"
         }

@@ -5,7 +5,7 @@ from telegram.ext import (Updater,
                             Filters, 
                             MessageHandler,
                             PicklePersistence, dispatcher)
-from bot.src.registration import Registration, Name
+from bot.src.registration import Registration
 from bot.src.menu import Menu
 import dotenv
 import os
@@ -20,7 +20,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 registration=Registration()
-name=Name()
 menu=Menu()
 
 def main():
@@ -35,6 +34,9 @@ def main():
             "LANGUAGE": [
               CallbackQueryHandler(
                     registration.get_language, pattern='uz|ru|en')   
+            ],
+            "NAME": [
+              MessageHandler(Filters.text, registration.get_name)  
             ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(

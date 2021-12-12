@@ -81,3 +81,30 @@ class Registration:
         logging.info(
             f"{chat_id} - has accepted terms and conditions and now is being requested for his name. Returning state {state}")
         return state
+    
+    
+    def get_name(self, update: Update, context: CallbackContext):
+        chat_id = update.effective_chat.id
+        language = lang(chat_id)
+        name_input = update.effective_message.text
+        full_name = name_input.split(" ")
+
+        # if len(full_name) == 2:
+        #     payload = {
+        #         "id": chat_id,
+        #         "first_name": full_name[0],
+        #         "last_name": full_name[1]
+        #     }
+        # else:
+        #     payload = {
+        #         "id": chat_id,
+        #         "first_name": name_input,
+        #         "last_name": None
+        #     }
+        # put(f"users/{chat_id}/", payload)
+        context.bot.send_message(chat_id,
+                                 t("name_accepted", language))
+        return self.request_phone(update, context)
+    
+    def request_phone(self, update: Update, context: CallbackContext):
+        
