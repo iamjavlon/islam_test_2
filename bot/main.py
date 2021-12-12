@@ -8,6 +8,7 @@ from telegram.ext import (Updater,
 from bot.src.registration import Registration, Name
 from bot.src.menu import Menu
 import dotenv
+import os
 import logging
 
 dotenv.load_dotenv()
@@ -23,7 +24,7 @@ name=Name()
 menu=Menu()
 
 def main():
-    updater = Updater(token="5072703021:AAE_IDZQC7JFXP6szB3hiXLKiWnslwMsbDo")
+    updater = Updater(token=os.getenv("BOT_TOKEN"))
     dispatcher=updater.dispatcher
     
     
