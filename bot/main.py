@@ -8,8 +8,8 @@ from telegram.ext import (Updater,
 from bot.src.registration import Registration
 from bot.src.menu import Menu
 import dotenv
-import os
 import logging
+import os
 
 dotenv.load_dotenv()
 logging.basicConfig(

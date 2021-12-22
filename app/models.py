@@ -27,6 +27,7 @@ class User(models.Model):
     
     def __str__(self):
         return str(self.id)
+    
 class Surah(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True, null=True)

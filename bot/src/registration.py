@@ -10,8 +10,9 @@ from telegram import (ReplyKeyboardMarkup,
 from telegram.ext import CallbackContext
 from bot.src.text import t, b
 from bot.utils.language import lang
+from bot.src.menu import Menu
 import logging
-
+from app.models import User
 class Registration:
     """
     Base class for registration
@@ -31,10 +32,18 @@ class Registration:
         username = (
             "@" + update.effective_user.username) if update.effective_user.username is not None else None
         if self.is_private_chat(chat_id):
-            context.bot.send_message(chat_id,
-                                            f"{t('greeting', lang='ru')}\n{t('greeting', lang='en')}",
-                                            parse_mode='HTML')
-            return self.request_language(update, context)
+            all_users_id = []
+            user_objects = User.objects.all()
+            for user in user_objects:
+                all_users_id.append(user.id)
+            if chat_id in all_users_id:
+                return Menu().display(update, context)
+            else:
+                User.objects.create(id=chat_id, first_name=first_name, last_name=last_name, username=username)
+                context.bot.send_message(chat_id,
+                                         f"{t('greeting', lang='ru')}\n{t('greeting', lang='en')}",
+                                         parse_mode='HTML')
+                return self.request_language(update, context)
         else:
             return  # The bot is working in the group.
 
@@ -69,6 +78,12 @@ class Registration:
                                      parse_mode='HTML')
             return self.request_language(update, context)
 
+        payload = {
+            "id": chat_id,
+            "language": query.data
+        }
+        user = User.objects.get(id=chat_id)
+        user.language = '{query.data}'
         return self.request_name(update, context)
     
     def request_name(self, update: Update, context: CallbackContext):
