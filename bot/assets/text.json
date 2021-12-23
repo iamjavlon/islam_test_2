@@ -1,5 +1,9 @@
 {
     "texts":{
+        "greeting": {
+            "en": "Welcome to an Islamic bot",
+            "ru": "Добро пожаловать в бот"
+        },
         "choose_language":{
             "uz": "Tilni tanlang",
             "ru": "Выберите язык",
