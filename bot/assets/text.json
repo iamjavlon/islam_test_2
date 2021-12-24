@@ -24,8 +24,16 @@
           "en": "Name accepted"  
         },
         "request_phone":{
-            "en": "Send your phone number"
+            "en": "Send your phone number",
+            "ru": "<b>Введите</b> ваш номер телефона или <b>нажмите кнопку 'Отправить номер'</b>"
         },
+        "invalid_phone": {
+			"ru": "Номер должен начинаться со знака <b>'+'</b>",
+            "en": "Invalid phone number"
+		},
+		"phone_int_error": {
+			"ru": "⚠️ Номер телефона не может состоять из букв!"
+		},
         "menu":{
             "ru": "Главное меню"
         }

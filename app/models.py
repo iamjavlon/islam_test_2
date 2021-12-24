@@ -6,8 +6,9 @@ from django.db import models
 class User(models.Model):
     
     LANGUAGES = [
-        ('en', "English"),
-        ('ru', "Русский")
+        ('uz', "O'zbek"),
+        ('ru', "Русский"),
+        ('en', "English")
     ]
     
     

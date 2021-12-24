@@ -72,18 +72,19 @@ class Registration:
         query.answer()
         query.delete_message()
 
-        if query.data == 'uz' or query.data == 'ru':
+        if query.data == 'uz':
             context.bot.send_message(chat_id,
-                                     t("uzbek_soon", lang="uz"), t("russian_soon", lang="ru"),
+                                     t("uzbek_soon", lang="uz"),
                                      parse_mode='HTML')
             return self.request_language(update, context)
-
-        payload = {
-            "id": chat_id,
-            "language": query.data
-        }
+        if query.data == 'ru':
+            context.bot.send_message(chat_id,
+                                     t("russian_soon", lang="ru"),
+                                     parse_mode='HTML')
+            return self.request_language(update, context)
         user = User.objects.get(id=chat_id)
-        user.language = '{query.data}'
+        user.language = query.data
+        user.save()
         return self.request_name(update, context)
     
     def request_name(self, update: Update, context: CallbackContext):
@@ -103,22 +104,19 @@ class Registration:
         language = lang(chat_id)
         name_input = update.effective_message.text
         full_name = name_input.split(" ")
-
-        # if len(full_name) == 2:
-        #     payload = {
-        #         "id": chat_id,
-        #         "first_name": full_name[0],
-        #         "last_name": full_name[1]
-        #     }
-        # else:
-        #     payload = {
-        #         "id": chat_id,
-        #         "first_name": name_input,
-        #         "last_name": None
-        #     }
-        # put(f"users/{chat_id}/", payload)
+        user = User.objects.get(id=chat_id)
+        
+        if len(full_name) == 2:
+            user.id = chat_id
+            user.first_name = full_name[0]
+            user.last_name = full_name[1]
+        else:
+            user.id = chat_id
+            user.first_name = name_input
+            user.last_name = None
+        user.save()
         context.bot.send_message(chat_id,
-                                 t("name_accepted", language))
+                                 t("accept_name", language))
         return self.request_phone(update, context)
     
     def request_phone(self, update: Update, context: CallbackContext):
@@ -139,4 +137,27 @@ class Registration:
 
 
     def get_phone(self, update: Update, context: CallbackContext):
-        pass
+        chat_id = update.effective_chat.id
+        message = update.effective_message
+        language = lang(chat_id)
+
+        if message.contact:
+            phone = message.contact.phone_number
+        else:
+            if update.message.text[:1] != '+':
+                context.bot.send_message(chat_id,
+                                         t("invalid_phone", language),
+                                         parse_mode='HTML')
+                return self.request_phone(update, context)
+            try:
+                int(update.message.text[1:])
+            except ValueError:
+                context.bot.send_message(chat_id,
+                                         t('phone_int_error', language),
+                                         parse_mode='HTML')
+                return self.request_phone(update, context)
+            phone = ''.join(update.message.text.split(' '))
+        user = User.objects.get(id=chat_id)
+        user.phone_number = phone
+        user.save()
+        return Menu().display(update, context)
