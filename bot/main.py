@@ -7,6 +7,7 @@ from telegram.ext import (Updater,
                             PicklePersistence, dispatcher)
 from bot.src.registration import Registration
 from bot.src.menu import Menu
+from bot.utils.filter import buttons
 import dotenv
 import logging
 import os
@@ -39,18 +40,20 @@ def main():
               MessageHandler(Filters.text, registration.get_name)  
             ],
              "REQUESTING_PHONE": [
+                MessageHandler(Filters.regex(
+                    buttons('skip')), menu.display),
                 MessageHandler(Filters.text | Filters.contact,
                                registration.get_phone)
             ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(
-                        'Quran Recitation'), menu.display),
+                        buttons('quran_recitation')), menu.quran_recitation),
                     MessageHandler(Filters.regex(
-                        'Hadith'), menu.display),
-                    MessageHandler(Filters.regex('support'),
+                        buttons('hadith')), menu.display),
+                    MessageHandler(Filters.regex(buttons('support')),
                                 menu.display),
                     MessageHandler(Filters.regex(
-                        'Info'), menu.display),
+                        buttons('info')), menu.display),
             ]},
         fallbacks=[
             CommandHandler('start', menu.display)],

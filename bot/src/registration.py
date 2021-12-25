@@ -122,15 +122,16 @@ class Registration:
     def request_phone(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         language = lang(chat_id)
+        buttons = [
+            [KeyboardButton(b('send_phone', language), request_contact=True)],
+            [KeyboardButton(b('skip', language))]
+        ]
         state = "REQUESTING_PHONE"
 
         context.bot.send_message(chat_id=chat_id,
                                  text=t('request_phone', language),
-                                 reply_markup=ReplyKeyboardMarkup([
-                                     [KeyboardButton(
-                                         b('send_phone', language), request_contact=True)],
-                                 ], resize_keyboard=True),
-                                 parse_mode='HTML')
+                                 reply_markup=ReplyKeyboardMarkup((buttons), resize_keyboard=True,
+                                 parse_mode='HTML'))
         logging.info(
             f"{chat_id} is being requested his phone number. Returning state: {state}")
         return state

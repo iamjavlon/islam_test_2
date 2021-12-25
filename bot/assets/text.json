@@ -36,6 +36,9 @@
 		},
         "menu":{
             "ru": "Главное меню"
+        },
+        "choose_surah":{
+            "en": "Choose Surah"
         }
     },
 
@@ -48,8 +51,21 @@
         "send_phone":{
             "en": "Send phone number"
         },
+        "skip": {
+            "en": "Skip"
+        },
         "quran_recitation":{
-            "ru": "Чтение Коран"
+            "ru": "Чтение Коран",
+            "en": "Quran recitation"
+        },
+        "hadith": {
+            "en": "Ahadeeth"
+        },
+        "support": {
+            "en": "Support"
+        },
+        "info": {
+            "en": "Info"
         }
         
     }

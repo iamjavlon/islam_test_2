@@ -7,7 +7,7 @@ from telegram import (ReplyKeyboardMarkup,
                       InlineKeyboardMarkup)
 from telegram.ext import CallbackContext
 from bot.src.text import t, b
-# from bot.utils.language import lang
+from bot.utils.language import lang
 import logging
 
 
@@ -15,12 +15,13 @@ class Menu:
     
     def display(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
+        language = lang(chat_id)
         state = "MENU_DISPLAYED"
         menu_buttons = [
-            [KeyboardButton("Quran Recitation"),
-                KeyboardButton("Hadith")],
-            [KeyboardButton("support"),
-                KeyboardButton("Info")]
+            [KeyboardButton(b("quran_recitation", language)),
+                KeyboardButton(b("hadith", language))],
+            [KeyboardButton(b("support", language)),
+                KeyboardButton(b("info", language))]
         ]
 
         context.bot.send_message(chat_id,
@@ -31,3 +32,11 @@ class Menu:
         logging.info(
             f"{chat_id} - opened main menu. Returned state: {state}")
         return state
+    
+    
+    def quran_recitation(self, update: Update, context: CallbackContext):
+        chat_id = update.effective_chat.id
+        language = lang(chat_id)
+        state = "QURAN"
+        context.bot.send_message(chat_id,
+                                 t("choose_surah", language))
