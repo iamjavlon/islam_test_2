@@ -47,14 +47,20 @@ def main():
             ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(
-                        buttons('quran_recitation')), menu.quran_recitation),
+                        buttons('quran_recitation')), menu.choose_reciter),
                     MessageHandler(Filters.regex(
                         buttons('hadith')), menu.display),
                     MessageHandler(Filters.regex(buttons('support')),
                                 menu.display),
                     MessageHandler(Filters.regex(
                         buttons('info')), menu.display),
-            ]},
+            ],
+            "RECITER": [
+                MessageHandler(Filters.regex(buttons('back')), menu.display)
+                # MessageHandler(FilterButton('reciter'),
+                #                reciter.display)
+            ]
+            },
         fallbacks=[
             CommandHandler('start', menu.display)],
         per_chat=False,

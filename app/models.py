@@ -30,6 +30,18 @@ class User(models.Model):
         return str(self.id)
     
 class Surah(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.TextField(blank=True, null=True)
-    audio = models.FileField(upload_to='media/')
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(
+        max_length=150, null=True, blank=True)
+    description = models.TextField(
+        null=True, blank=True)
+    audio = models.FileField(
+        upload_to='media/')
+    
+    
+class Reciter(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(
+        max_length=255, null=True, blank=True)
+    description = models.TextField(
+        null=True, blank=True)

@@ -39,7 +39,14 @@
         },
         "choose_surah":{
             "en": "Choose Surah"
+        },
+        "choose_reciter": {
+            "en": "Choose Reciter"
+        },
+        "audio": {
+            "en": "Audio"
         }
+        
     },
 
     "buttons":{
@@ -66,7 +73,9 @@
         },
         "info": {
             "en": "Info"
+        },
+        "back": {
+            "en": "Back"
         }
-        
     }
 }

@@ -1,7 +1,7 @@
 # from requests.auth import HTTPBasicAuth
 # from core.settings import API_URL, API_AUTHENTICATION
-# import requests
-
+import requests
+from app.models import User, Surah, Reciter
 
 # def get(API_ENDPOINT: str = None):
 #     return requests.get(
@@ -21,13 +21,20 @@
 #     ).json()
 
 
-# def parser(API_ENDPOINT: str, key: str):
-#     custom_list = []
-#     obj = requests.get(API_URL + API_ENDPOINT, auth=API_AUTHENTICATION).json()
+def parser_reciter(key: str):
+    custom_list = []
+    obj = Reciter.objects.all()
+    for i in obj:
+        custom_list.append(i.name)
+    return custom_list
 
-#     for i in obj:
-#         custom_list.append(i[key])
-#     return custom_list
+
+def parser_surah( key: str):
+    custom_list = []
+    obj = Surah.objects.all() 
+    for i in obj:
+        custom_list.append(i.name)
+    return custom_list
 
 
 # def get_target_id_by_name(API_ENDPOINT: str, target: str):
