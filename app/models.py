@@ -29,6 +29,15 @@ class User(models.Model):
     def __str__(self):
         return str(self.id)
     
+
+class Reciter(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(
+        max_length=255, null=True, blank=True)
+    description = models.TextField(
+        null=True, blank=True)
+
+
 class Surah(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(
@@ -37,11 +46,6 @@ class Surah(models.Model):
         null=True, blank=True)
     audio = models.FileField(
         upload_to='media/')
+    reciter =  models.ForeignKey(Reciter, on_delete=models.CASCADE)
     
     
-class Reciter(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(
-        max_length=255, null=True, blank=True)
-    description = models.TextField(
-        null=True, blank=True)

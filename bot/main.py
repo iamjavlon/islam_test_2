@@ -7,6 +7,8 @@ from telegram.ext import (Updater,
                             PicklePersistence, dispatcher)
 from bot.src.registration import Registration
 from bot.src.menu import Menu
+from bot.src.reciter import Reciter
+from bot.src.audio import Audio
 from bot.utils.filter import buttons
 import dotenv
 import logging
@@ -22,6 +24,8 @@ logger = logging.getLogger(__name__)
 
 registration=Registration()
 menu=Menu()
+reciter=Reciter()
+audio=Audio()
 
 def main():
     updater = Updater(token=os.getenv("BOT_TOKEN"))
@@ -57,8 +61,13 @@ def main():
             ],
             "RECITER": [
                 MessageHandler(Filters.regex(buttons('back')), menu.display)
-                # MessageHandler(FilterButton('reciter'),
-                #                reciter.display)
+                MessageHandler(FilterButtonReciter('reciter'),
+                                reciter.display)
+            ],
+            "AUDIO_DISPLAYED": [
+                MessageHandler(Filters.regex(buttons('back')), reciter.display)
+                MessageHandler(FilterButton('surah'),
+                                audio.display)
             ]
             },
         fallbacks=[
