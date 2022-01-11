@@ -45,6 +45,9 @@
         },
         "audio": {
             "en": "Audio"
+        },
+        "raise_no_surah": {
+            "en": "Please choose from the list below"
         }
         
     },

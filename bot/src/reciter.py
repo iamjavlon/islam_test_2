@@ -1,16 +1,18 @@
-from telegram import Update
+from os import name
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import CallbackContext
 from bot.utils.language import lang
 from bot.src.text import t, b
 from bot.utils.build_menu import build_menu
-from bot.utils.request import get, get_target_id_by_name
-from app.models import User, Reciter
+from app.models import User, Reciter, Surah
 from bot.src.audio import Audio
 from bot.utils.request import parser_reciter, parser_surah
+import logging
 
 audio = Audio()
+reciter=Reciter()
 
-class Reciter():
+class ReciterClass():
 
     def display(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
@@ -18,13 +20,12 @@ class Reciter():
         response = update.effective_message.text
 
         state = "AUDIO_DISPLAYED"
-        reciter = Reciter.objects.get(name='response')
 
         custom_list = []
-        obj = Surah.objects.all(reciter=reciter)
-        for i in obj:
+        obj = Surah.objects.filter(reciter__name=response)
+        audio_name = list(obj)
+        for i in audio_name:
             custom_list.append(i.name)
-        return custom_list
         audio_list = custom_list
         
         context.bot.send_message(chat_id,
@@ -41,5 +42,5 @@ class Reciter():
                                          ]), resize_keyboard=True, input_field_placeholder=t('audio', language)),
                                  parse_mode='HTML')
         logging.info(
-            f"{chat_id} - wantS to listen to one of the audios. Returned state: {state}")
+            f"{chat_id} - wants to listen to one of the audios. Returned state: {state}")
         return state

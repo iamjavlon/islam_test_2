@@ -7,9 +7,9 @@ from telegram.ext import (Updater,
                             PicklePersistence, dispatcher)
 from bot.src.registration import Registration
 from bot.src.menu import Menu
-from bot.src.reciter import Reciter
+from bot.src.reciter import ReciterClass
 from bot.src.audio import Audio
-from bot.utils.filter import buttons
+from bot.utils.filter import buttons, FilterButton
 import dotenv
 import logging
 import os
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 registration=Registration()
 menu=Menu()
-reciter=Reciter()
+reciter=ReciterClass()
 audio=Audio()
 
 def main():
@@ -59,13 +59,14 @@ def main():
                     MessageHandler(Filters.regex(
                         buttons('info')), menu.display),
             ],
-            "RECITER": [
-                MessageHandler(Filters.regex(buttons('back')), menu.display)
-                MessageHandler(FilterButtonReciter('reciter'),
+            "RECITER":[
+                MessageHandler(Filters.regex(buttons('back')), menu.display),
+                MessageHandler(FilterButton('reciter'),
                                 reciter.display)
-            ],
+                ],
+                
             "AUDIO_DISPLAYED": [
-                MessageHandler(Filters.regex(buttons('back')), reciter.display)
+                MessageHandler(Filters.regex(buttons('back')), menu.choose_reciter),
                 MessageHandler(FilterButton('surah'),
                                 audio.display)
             ]
