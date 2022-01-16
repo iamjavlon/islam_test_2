@@ -24,3 +24,4 @@ urlpatterns = [
     path('about/', about_view, name='about'),
     path('admin/', admin.site.urls),
 ]
+
