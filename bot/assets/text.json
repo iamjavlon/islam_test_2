@@ -34,7 +34,8 @@
 		"phone_int_error": {
 			"ru": "⚠️ Номер телефона не может состоять из букв!"
 		},
-        "menu":{
+        "main_menu":{
+            "en": "Main Menu",
             "ru": "Главное меню"
         },
         "choose_surah":{
@@ -48,6 +49,12 @@
         },
         "raise_no_surah": {
             "en": "Please choose from the list below"
+        },
+        "contact_support": {
+            "en": "Please leave your question or feedback here by text, audio, photo, video"
+        },
+        "support": {
+            "en": "Support"
         }
         
     },
