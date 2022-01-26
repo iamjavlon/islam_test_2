@@ -24,8 +24,7 @@ class User(models.Model):
         max_length=2, choices=LANGUAGES, default=None, null=True)
     date_joined = models.DateField(
         null=True, auto_now_add=True)
-    
-    
+
     class Meta:
         verbose_name = ("User")
         verbose_name_plural = ("Users")
@@ -40,8 +39,7 @@ class Reciter(models.Model):
         max_length=255, null=True, blank=True)
     description = models.TextField(
         null=True, blank=True)
-    
-    
+
     class Meta:
         verbose_name = ("Reciter")
         verbose_name_plural = ("Reciters")
@@ -61,8 +59,7 @@ class Surah(models.Model):
         upload_to='media/')
     reciter = models.ForeignKey(
         Reciter, on_delete=models.CASCADE, default=None)
-    
-    
+
     class Meta:
         verbose_name = ("Surah")
         verbose_name_plural = ("Surahs")
