@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 # Create your models here.
@@ -24,8 +25,7 @@ class User(models.Model):
         max_length=2, choices=LANGUAGES, default=None, null=True)
     date_joined = models.DateField(
         null=True, auto_now_add=True)
-    
-    
+
     class Meta:
         verbose_name = ("User")
         verbose_name_plural = ("Users")
@@ -40,8 +40,7 @@ class Reciter(models.Model):
         max_length=255, null=True, blank=True)
     description = models.TextField(
         null=True, blank=True)
-    
-    
+
     class Meta:
         verbose_name = ("Reciter")
         verbose_name_plural = ("Reciters")
@@ -51,7 +50,7 @@ class Reciter(models.Model):
 
 
 class Surah(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     number = models.IntegerField(null=True, blank=True)
     name = models.CharField(
         max_length=150, null=True, blank=True)
@@ -61,8 +60,7 @@ class Surah(models.Model):
         upload_to='media/')
     reciter = models.ForeignKey(
         Reciter, on_delete=models.CASCADE, default=None)
-    
-    
+
     class Meta:
         verbose_name = ("Surah")
         verbose_name_plural = ("Surahs")
