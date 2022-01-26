@@ -9,6 +9,8 @@ from bot.src.registration import Registration
 from bot.src.menu import Menu
 from bot.src.reciter import ReciterClass
 from bot.src.audio import Audio
+from bot.src.recitation import Recitation
+from bot.src.support import Support
 from bot.utils.filter import buttons, FilterButton
 import dotenv
 import logging
@@ -26,6 +28,8 @@ registration=Registration()
 menu=Menu()
 reciter=ReciterClass()
 audio=Audio()
+recitation=Recitation()
+support=Support()
 
 def main():
     updater = Updater(token=os.getenv("BOT_TOKEN"))
@@ -51,11 +55,11 @@ def main():
             ],
             "MENU_DISPLAYED": [
                     MessageHandler(Filters.regex(
-                        buttons('quran_recitation')), menu.choose_reciter),
+                        buttons('quran_recitation')), recitation.choose_reciter),
                     MessageHandler(Filters.regex(
                         buttons('hadith')), menu.display),
                     MessageHandler(Filters.regex(buttons('support')),
-                                menu.display),
+                                support.support_page),
                     MessageHandler(Filters.regex(
                         buttons('info')), menu.display),
             ],
@@ -66,9 +70,13 @@ def main():
                 ],
                 
             "AUDIO_DISPLAYED": [
-                MessageHandler(Filters.regex(buttons('back')), menu.choose_reciter),
+                MessageHandler(Filters.regex(buttons('back')), recitation.choose_reciter),
                 MessageHandler(FilterButton('surah'),
                                 audio.display)
+            ],
+            
+            "SUPPORT": [
+                MessageHandler(Filters.regex(buttons('back')), menu.display)
             ]
             },
         fallbacks=[
