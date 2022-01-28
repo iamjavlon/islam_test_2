@@ -55,6 +55,15 @@
         },
         "support": {
             "en": "Support"
+        },
+        "accept_question": {
+            "en": "Feedback accepted"
+        },
+        "support_format_error": {
+            "en": "Please use text/photo/audio to leave your feedback"
+        },
+        "request_feedback": {
+            "en": "Please leave your feedback or sggestions using text/photo/audio"
         }
         
     },

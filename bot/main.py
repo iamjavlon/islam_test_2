@@ -59,7 +59,7 @@ def main():
                     MessageHandler(Filters.regex(
                         buttons('hadith')), menu.display),
                     MessageHandler(Filters.regex(buttons('support')),
-                                support.support_page),
+                                support.support),
                     MessageHandler(Filters.regex(
                         buttons('info')), menu.display),
             ],
@@ -76,7 +76,8 @@ def main():
             ],
             
             "SUPPORT": [
-                MessageHandler(Filters.regex(buttons('back')), menu.display)
+                MessageHandler(Filters.regex(buttons('back')), menu.display),
+                MessageHandler(Filters.all, support.accept)
             ]
             },
         fallbacks=[

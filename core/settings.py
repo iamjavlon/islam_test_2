@@ -27,6 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+GROUP_ID = -1001426432253
 ALLOWED_HOSTS = []
 
 
