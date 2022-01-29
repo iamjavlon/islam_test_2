@@ -64,12 +64,18 @@
         },
         "request_feedback": {
             "en": "Please leave your feedback or sggestions using text/photo/audio"
+        },
+        "settings": {
+            "en": "Settings"
+        },
+        "settings_placeholder": {
+            "en": "Settings"
         }
         
     },
 
     "buttons":{
-        "language":{
+        "choose_language":{
             "uz": "O'zbek tili",
             "ru": "Русский язык",
             "en": "English"
@@ -95,6 +101,15 @@
         },
         "back": {
             "en": "Back"
+        },
+        "my_profile": {
+            "en": "My Profile"
+        },
+        "language": {
+            "en": "Language"
+        },
+        "settings": {
+            "en": "Settings"
         }
     }
 }

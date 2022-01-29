@@ -13,6 +13,8 @@ from bot.utils.language import lang
 from bot.src.menu import Menu
 import logging
 from app.models import User
+
+
 class Registration:
     """
     Base class for registration
@@ -23,12 +25,11 @@ class Registration:
             return True
         else:
             return False
-    
-    
-    def start(self, update:Update, context: CallbackContext):
-        chat_id=update.effective_chat.id
-        first_name=update.effective_chat.first_name
-        last_name=update.effective_chat.last_name
+
+    def start(self, update: Update, context: CallbackContext):
+        chat_id = update.effective_chat.id
+        first_name = update.effective_chat.first_name
+        last_name = update.effective_chat.last_name
         username = (
             "@" + update.effective_user.username) if update.effective_user.username is not None else None
         if self.is_private_chat(chat_id):
@@ -39,7 +40,8 @@ class Registration:
             if chat_id in all_users_id:
                 return Menu().display(update, context)
             else:
-                User.objects.create(id=chat_id, first_name=first_name, last_name=last_name, username=username)
+                User.objects.create(
+                    id=chat_id, first_name=first_name, last_name=last_name, username=username)
                 context.bot.send_message(chat_id,
                                          f"{t('greeting', lang='ru')}\n{t('greeting', lang='en')}",
                                          parse_mode='HTML')
@@ -47,25 +49,24 @@ class Registration:
         else:
             return  # The bot is working in the group.
 
-        
     def request_language(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         markup = [
-            [InlineKeyboardButton(b('language', lang='uz'), callback_data='uz'),
-            InlineKeyboardButton(b('language', lang='ru'), callback_data='ru'),
-            InlineKeyboardButton(b('language', lang='en'), callback_data='en')]
+            [InlineKeyboardButton(b('choose_language', lang='uz'), callback_data='uz'),
+             InlineKeyboardButton(
+                 b('choose_language', lang='ru'), callback_data='ru'),
+             InlineKeyboardButton(b('choose_language', lang='en'), callback_data='en')]
         ]
         state = "LANGUAGE"
 
         context.bot.send_message(chat_id,
-                                f"{t('choose_language', lang='uz')}\n{t('choose_language', lang='ru')}\n{t('choose_language', lang='en')}",
-                                reply_markup=InlineKeyboardMarkup(markup))
+                                 f"{t('choose_language', lang='uz')}\n{t('choose_language', lang='ru')}\n{t('choose_language', lang='en')}",
+                                 reply_markup=InlineKeyboardMarkup(markup))
 
         logging.info(
             f'{chat_id} - choosing a language. Returned state: {state}')
         return state
-    
-    
+
     def get_language(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         query = update.callback_query
@@ -86,7 +87,7 @@ class Registration:
         user.language = query.data
         user.save()
         return self.request_name(update, context)
-    
+
     def request_name(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         language = lang(chat_id)
@@ -97,15 +98,14 @@ class Registration:
         logging.info(
             f"{chat_id} - has accepted terms and conditions and now is being requested for his name. Returning state {state}")
         return state
-    
-    
+
     def get_name(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         language = lang(chat_id)
         name_input = update.effective_message.text
         full_name = name_input.split(" ")
         user = User.objects.get(id=chat_id)
-        
+
         if len(full_name) == 2:
             user.id = chat_id
             user.first_name = full_name[0]
@@ -118,7 +118,7 @@ class Registration:
         context.bot.send_message(chat_id,
                                  t("accept_name", language))
         return self.request_phone(update, context)
-    
+
     def request_phone(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         language = lang(chat_id)
@@ -131,11 +131,10 @@ class Registration:
         context.bot.send_message(chat_id=chat_id,
                                  text=t('request_phone', language),
                                  reply_markup=ReplyKeyboardMarkup((buttons), resize_keyboard=True,
-                                 parse_mode='HTML'))
+                                                                  parse_mode='HTML'))
         logging.info(
             f"{chat_id} is being requested his phone number. Returning state: {state}")
         return state
-
 
     def get_phone(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
