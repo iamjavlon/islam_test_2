@@ -70,8 +70,22 @@
         },
         "settings_placeholder": {
             "en": "Settings"
+        },
+        "accept_request": {
+            "en": "Username: <b>{username}</b>\nFull Name: <b>{full_name}</b>"
+		},
+        "reply_error": {
+            "en": "Replies are only possible for <b>forwarded messages</b> from this bot (Forwarded from: ...)"
+        },
+        "reply_to_user": {
+            "en": "<b>Answer from Admins:</b>\n{}"
+        },
+        "answer_sent": {
+            "en": "Great! Your response was sent to {username}"
+        },
+        "reply_exception": {
+            "en": "Try replying to the latest message"
         }
-        
     },
 
     "buttons":{

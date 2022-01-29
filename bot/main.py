@@ -4,8 +4,8 @@ from telegram.ext import (Updater,
                           ConversationHandler,
                           CallbackQueryHandler,
                           Filters,
-                          MessageHandler,
-                          PicklePersistence, dispatcher)
+                          MessageHandler)
+from core.settings import BOT_ID, DEBUG
 from bot.src.registration import Registration
 from bot.src.menu import Menu
 from bot.src.reciter import ReciterClass
@@ -13,7 +13,9 @@ from bot.src.audio import Audio
 from bot.src.recitation import Recitation
 from bot.src.support import Support
 from bot.src.settings import Settings
+from bot.src.group import Group
 from bot.utils.filter import buttons, FilterButton
+from bot.utils.reply_to_message_filter import ReplyToMessageFilter
 import dotenv
 import logging
 import os
@@ -33,7 +35,7 @@ audio = Audio()
 recitation = Recitation()
 support = Support()
 settings = Settings()
-
+group = Group()
 
 def main():
     updater = Updater(token=os.getenv("BOT_TOKEN"))
@@ -99,6 +101,8 @@ def main():
     )
 
     dispatcher.add_handler(main_conversation)
-
+    dispatcher.add_handler(MessageHandler(
+        ReplyToMessageFilter(Filters.user(BOT_ID)), group.reply_to_user
+    ))
     updater.start_polling()
     updater.idle()

@@ -5,6 +5,7 @@ from telegram.ext import CallbackContext
 from bot.src.text import t, b
 from bot.utils.language import lang
 from bot.src.menu import Menu
+from app.models import User
 from core.settings import GROUP_ID
 import logging
 
@@ -27,19 +28,28 @@ class Support():
         logging.info(
             f"{chat_id} - is requesting support. Returned state: {state}")
         return state
-    
-    
-    
+
     def accept(self, update: Update, context: CallbackContext):
         chat_id = update.effective_chat.id
         language = lang(chat_id)
-        user_request = update.message
+        user_request = update.effective_message
+        user = User.objects.get(id=chat_id)
+        first_name = user.first_name
+        last_name = user.last_name
+        user_name = f"""{first_name} {last_name}"""
+        user_username = user.username
 
         if user_request.text or user_request.photo or user_request.voice:
             msg = context.bot.forward_message(GROUP_ID,
                                               from_chat_id=chat_id,
                                               message_id=user_request.message_id)
 
+            context.bot.send_message(GROUP_ID,
+                                     f"{t('accept_request', language)}"
+                                     .format(
+                                         username=user_username,
+                                         full_name=user_name),
+                                     parse_mode='HTML')
             payload = {
                 msg.message_id: chat_id
             }
@@ -56,4 +66,3 @@ class Support():
         context.bot.send_message(chat_id,
                                  t('support_format_error', language),
                                  parse_mode='HTML')
-    
