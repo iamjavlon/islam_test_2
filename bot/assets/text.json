@@ -87,7 +87,10 @@
             "en": "Try replying to the latest message"
         },
         "my_info": {
-            "en": "My ID: <b>{user_id}</b>\n\nName: <b>{first_name}</b>\nSurname: <b>{last_name}</b>\nPhone: <b>+{phone}</b>"
+            "en": "My ID: <b>{user_id}</b>\n\nName: <b>{first_name}</b>\nSurname: <b>{last_name}</b>\nPhone: <b>{phone}</b>\nLanguage: <b>{language}</b>"
+        },
+        "change_language":{
+            "en": "Your current language is: <b>{language}</b>\n\nPlease choose new language: "
         }
     },
 

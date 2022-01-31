@@ -94,7 +94,11 @@ def main():
                 MessageHandler(Filters.regex(
                     buttons('my_profile')), profile.my_info),
                 MessageHandler(Filters.regex(
-                    buttons('language')), settings.display)
+                    buttons('language')), profile.change_language)
+            ],
+            "CHANGE_LANGUAGE": [
+                CallbackQueryHandler(
+                    profile.get_language, pattern='uz|ru|en')
             ]
         },
         fallbacks=[
