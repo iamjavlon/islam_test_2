@@ -14,6 +14,7 @@ from bot.src.recitation import Recitation
 from bot.src.support import Support
 from bot.src.settings import Settings
 from bot.src.group import Group
+from bot.src.profile import Profile
 from bot.utils.filter import buttons, FilterButton
 from bot.utils.reply_to_message_filter import ReplyToMessageFilter
 import dotenv
@@ -36,6 +37,8 @@ recitation = Recitation()
 support = Support()
 settings = Settings()
 group = Group()
+profile = Profile()
+
 
 def main():
     updater = Updater(token=os.getenv("BOT_TOKEN"))
@@ -89,7 +92,7 @@ def main():
             "SETTINGS": [
                 MessageHandler(Filters.regex(buttons('back')), menu.display),
                 MessageHandler(Filters.regex(
-                    buttons('my_profile')), settings.display),
+                    buttons('my_profile')), profile.my_info),
                 MessageHandler(Filters.regex(
                     buttons('language')), settings.display)
             ]

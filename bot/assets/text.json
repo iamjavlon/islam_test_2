@@ -85,6 +85,9 @@
         },
         "reply_exception": {
             "en": "Try replying to the latest message"
+        },
+        "my_info": {
+            "en": "My ID: <b>{user_id}</b>\n\nName: <b>{first_name}</b>\nSurname: <b>{last_name}</b>\nPhone: <b>+{phone}</b>"
         }
     },
 
