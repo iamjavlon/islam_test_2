@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 
 # Create your models here.
@@ -56,7 +57,7 @@ class Surah(models.Model):
     description = models.TextField(
         null=True, blank=True, default=None)
     audio = models.FileField(
-        upload_to='media/')
+        upload_to='media/surahs/')
     reciter = models.ForeignKey(
         Reciter, on_delete=models.CASCADE, default=None)
 
@@ -66,3 +67,26 @@ class Surah(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class Post(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(
+        max_length=200, null=False, blank=True)
+    heading = models.CharField(
+        max_length=250, null=True, blank=True)
+    body = models.TextField(
+        null=True, blank=True, default=None)
+    image_id = models.IntegerField(
+        null=True, blank=True)
+    media = models.ImageField(
+        upload_to='media/posts/')
+    date_posted = models.DateTimeField(
+        auto_now_add=True)
+
+    class Meta:
+        verbose_name = ("Post")
+        verbose_name_plural = ("Posts")
+
+    def __str__(self):
+        return str(self.title)

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django import forms
 
 # Register your models here.
-from .models import User, Surah, Reciter
+from .models import User, Surah, Reciter, Post
 
 
 class FolderImportForm(forms.Form):
@@ -38,6 +38,10 @@ class SurahAdmin(admin.ModelAdmin):
         data = {"form": form}
         return render(request, "admin/folder_upload.html", data)
 
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'date_posted']
 
 admin.site.index_title = "Quran Bot"
 admin.site.site_header = "Quran Bot Admin"
